@@ -2,96 +2,44 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>나의 고교 3년 타임라인</title>
+    <title>고교 3년 기록 아카이브</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1 id="main-title">🌿 High School Archive</h1>
-            <p>기록하고 싶은 학년을 터치하세요</p>
+            <h1 id="main-title">My Highschool Record</h1>
+            <div class="accent-line"></div>
         </header>
 
-        <nav class="menu">
+        <nav class="menu" id="main-menu">
             <div class="card" onclick="goToPage(1)">
-                <h2>1st Grade</h2>
-                <p>새로운 시작</p>
+                <span class="year-num">01</span>
+                <h3>1학년 기록</h3>
+                <p>#FF5733 color</p>
             </div>
             <div class="card" onclick="goToPage(2)">
-                <h2>2nd Grade</h2>
-                <p>열정의 시간</p>
+                <span class="year-num">02</span>
+                <h3>2학년 기록</h3>
+                <p>#FF5733 color</p>
             </div>
             <div class="card" onclick="goToPage(3)">
-                <h2>3rd Grade</h2>
-                <p>결실의 순간</p>
+                <span class="year-num">03</span>
+                <h3>3학년 기록</h3>
+                <p>#FF5733 color</p>
             </div>
         </nav>
 
         <section id="detail-view" class="hidden">
-            <button onclick="goBack()" class="back-btn">← 뒤로가기</button>
-            <h2 id="year-title"></h2>
-            <ul id="record-list"></ul>
+            <div class="detail-header">
+                <button onclick="goBack()" class="back-btn">Back</button>
+                <h2 id="year-title"></h2>
+            </div>
+            <div class="content-list-wrapper">
+                <ul id="record-list"></ul>
+            </div>
         </section>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
-body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; color: #333; }
-.container { max-width: 800px; margin: auto; text-align: center; }
-
-h1 { color: #008080; margin-top: 50px; }
-.menu { display: flex; justify-content: space-around; margin-top: 50px; gap: 20px; }
-
-.card { 
-    background: #f4fbfb; border: 2px solid #008080; border-radius: 20px;
-    padding: 30px; width: 30%; cursor: pointer; transition: 0.3s;
-}
-.card:hover { background: #008080; color: white; transform: translateY(-10px); }
-
-.hidden { display: none; } /* 화면에서 숨기는 설정 */
-
-#detail-view { 
-    margin-top: 50px; padding: 40px; border-radius: 20px;
-    background-color: #fff; border: 1px solid #e0f2f1;
-}
-
-.back-btn { 
-    background: none; border: 1px solid #008080; color: #008080;
-    padding: 5px 15px; border-radius: 20px; cursor: pointer; margin-bottom: 20px;
-}
-
-#record-list { list-style: none; padding: 0; text-align: left; display: inline-block; }
-#record-list li { margin: 10px 0; font-size: 1.1rem; }
-const records = {
-    1: ["🌸 입학식과 새로운 친구들", "🧪 과학 탐구 토론 대회 참가", "📚 나만의 공부 습관 만들기"],
-    2: ["☀️ 즐거웠던 제주도 수학여행", "💃 축제 때 반 친구들과 댄스 공연", "💻 첫 코딩 프로젝트 시작"],
-    3: ["🍁 수험생으로의 다짐", "📸 운동장에서 찍은 졸업사진", "💌 나에게 쓰는 응원 편지"]
-};
-
-function goToPage(year) {
-    // 메인 메뉴 숨기기
-    document.querySelector('.menu').classList.add('hidden');
-    document.getElementById('main-title').classList.add('hidden');
-    
-    // 상세 페이지 보여주기
-    const detailView = document.getElementById('detail-view');
-    detailView.classList.remove('hidden');
-    
-    document.getElementById('year-title').innerText = year + "학년의 기록";
-    
-    const list = document.getElementById('record-list');
-    list.innerHTML = ""; // 기존 내용 지우기
-    records[year].forEach(item => {
-        const li = document.createElement('li');
-        li.innerText = "• " + item;
-        list.appendChild(li);
-    });
-}
-
-function goBack() {
-    // 다시 메인으로 돌아가기
-    document.querySelector('.menu').classList.remove('hidden');
-    document.getElementById('main-title').classList.remove('hidden');
-    document.getElementById('detail-view').classList.add('hidden');
-}
