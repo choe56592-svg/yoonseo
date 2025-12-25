@@ -1,49 +1,50 @@
-// 학년별 기록을 저장할 바구니
-let recordsData = { 1: [], 2: [], 3: [] };
-let activeYear = 0;
+// 데이터를 체계적으로 관리 (3개 학년 x 4개 카테고리)
+let storage = {
+    1: { 1: [], 2: [], 3: [], 4: [] },
+    2: { 1: [], 2: [], 3: [], 4: [] },
+    3: { 1: [], 2: [], 3: [], 4: [] }
+};
+let currentYear = 0;
 
-// 페이지 전환 함수
 function goToPage(year) {
-    activeYear = year;
+    currentYear = year;
     document.getElementById('main-menu').classList.add('hidden');
     document.getElementById('header-area').classList.add('hidden');
-    
-    const detailView = document.getElementById('detail-view');
-    detailView.classList.remove('hidden');
-    document.getElementById('year-title').innerText = year + "학년의 자몽 기록";
-    
-    renderRecords();
+    document.getElementById('detail-view').classList.remove('hidden');
+    document.getElementById('year-title').innerText = year + "학년의 자몽 저장소";
+    renderAll();
 }
 
-// 메인으로 돌아가기
+function addFullRecord() {
+    const cat = document.getElementById('cat-select').value;
+    const title = document.getElementById('record-title').value;
+    const desc = document.getElementById('record-desc').value;
+
+    if (title && desc) {
+        storage[currentYear][cat].push({ title, desc });
+        document.getElementById('record-title').value = "";
+        document.getElementById('record-desc').value = "";
+        renderAll();
+    } else {
+        alert("제목과 내용을 모두 적어주세요! 🍹");
+    }
+}
+
+function renderAll() {
+    for (let i = 1; i <= 4; i++) {
+        const display = document.getElementById('display-' + i);
+        display.innerHTML = "";
+        storage[currentYear][i].forEach(item => {
+            const div = document.createElement('div');
+            div.className = "record-item";
+            div.innerHTML = `<b>🍊 ${item.title}</b><span>${item.desc}</span>`;
+            display.appendChild(div);
+        });
+    }
+}
+
 function goBack() {
     document.getElementById('main-menu').classList.remove('hidden');
     document.getElementById('header-area').classList.remove('hidden');
     document.getElementById('detail-view').classList.add('hidden');
-}
-
-// 기록 추가하기
-function addRecord() {
-    const input = document.getElementById('record-input');
-    const text = input.value.trim();
-    
-    if (text !== "") {
-        recordsData[activeYear].push(text);
-        input.value = "";
-        renderRecords();
-    } else {
-        alert("내용을 입력해주세요! 🍊");
-    }
-}
-
-// 화면에 리스트 그려주기
-function renderRecords() {
-    const list = document.getElementById('record-list');
-    list.innerHTML = ""; 
-    
-    recordsData[activeYear].forEach((item) => {
-        const li = document.createElement('li');
-        li.innerText = "🍊 " + item;
-        list.appendChild(li);
-    });
 }
