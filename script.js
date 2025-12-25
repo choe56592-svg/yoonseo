@@ -1,31 +1,49 @@
-const records = {
-    1: ["입학식: 설레는 첫 등교", "첫 중간고사 합격점!", "미술 시간 나만의 작품 만들기"],
-    2: ["여름 방학 가족 여행", "수학 여행 장기자랑 연습", "좋아하는 과목 탐색하기"],
-    3: ["졸업 사진 촬영", "수능 대박 기원 선물", "미래의 나에게 편지 쓰기"]
-};
+// 학년별 기록을 저장할 바구니
+let recordsData = { 1: [], 2: [], 3: [] };
+let activeYear = 0;
 
+// 페이지 전환 함수
 function goToPage(year) {
+    activeYear = year;
     document.getElementById('main-menu').classList.add('hidden');
-    document.getElementById('main-title').classList.add('hidden');
-    document.querySelector('.accent-line').classList.add('hidden');
+    document.getElementById('header-area').classList.add('hidden');
     
     const detailView = document.getElementById('detail-view');
     detailView.classList.remove('hidden');
+    document.getElementById('year-title').innerText = year + "학년의 자몽 기록";
     
-    document.getElementById('year-title').innerText = year + "학년 상세 기록";
-    
-    const list = document.getElementById('record-list');
-    list.innerHTML = ""; 
-    records[year].forEach(item => {
-        const li = document.createElement('li');
-        li.innerText = "● " + item;
-        list.appendChild(li);
-    });
+    renderRecords();
 }
 
+// 메인으로 돌아가기
 function goBack() {
     document.getElementById('main-menu').classList.remove('hidden');
-    document.getElementById('main-title').classList.remove('hidden');
-    document.querySelector('.accent-line').classList.remove('hidden');
+    document.getElementById('header-area').classList.remove('hidden');
     document.getElementById('detail-view').classList.add('hidden');
+}
+
+// 기록 추가하기
+function addRecord() {
+    const input = document.getElementById('record-input');
+    const text = input.value.trim();
+    
+    if (text !== "") {
+        recordsData[activeYear].push(text);
+        input.value = "";
+        renderRecords();
+    } else {
+        alert("내용을 입력해주세요! 🍊");
+    }
+}
+
+// 화면에 리스트 그려주기
+function renderRecords() {
+    const list = document.getElementById('record-list');
+    list.innerHTML = ""; 
+    
+    recordsData[activeYear].forEach((item) => {
+        const li = document.createElement('li');
+        li.innerText = "🍊 " + item;
+        list.appendChild(li);
+    });
 }

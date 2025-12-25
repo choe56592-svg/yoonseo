@@ -2,39 +2,47 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>고교 3년 기록 아카이브</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상큼자몽 고교 기록장</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 id="main-title">My Highschool Record</h1>
-            <div class="accent-line"></div>
+        <header id="header-area">
+            <div class="juice-icon">🍹</div>
+            <h1>Grapefruit Diary</h1>
+            <p class="sub-text">자몽주스처럼 상큼했던 나의 3년</p>
         </header>
 
         <nav class="menu" id="main-menu">
             <div class="card" onclick="goToPage(1)">
-                <span class="year-num">01</span>
-                <h3>1학년 기록</h3>
-                <p>#FF5733 color</p>
+                <div class="emoji">🌸</div>
+                <h3>1학년</h3>
+                <p class="card-desc">새로운 시작</p>
             </div>
             <div class="card" onclick="goToPage(2)">
-                <span class="year-num">02</span>
-                <h3>2학년 기록</h3>
-                <p>#FF5733 color</p>
+                <div class="emoji">☀️</div>
+                <h3>2학년</h3>
+                <p class="card-desc">열정의 시간</p>
             </div>
             <div class="card" onclick="goToPage(3)">
-                <span class="year-num">03</span>
-                <h3>3학년 기록</h3>
-                <p>#FF5733 color</p>
+                <div class="emoji">🍁</div>
+                <h3>3학년</h3>
+                <p class="card-desc">결실의 순간</p>
             </div>
         </nav>
 
         <section id="detail-view" class="hidden">
             <div class="detail-header">
-                <button onclick="goBack()" class="back-btn">Back</button>
+                <button onclick="goBack()" class="back-btn">← 뒤로가기</button>
                 <h2 id="year-title"></h2>
             </div>
+            
+            <div class="input-area">
+                <input type="text" id="record-input" placeholder="상큼한 기억을 적어보세요!">
+                <button onclick="addRecord()" class="add-btn">기록!</button>
+            </div>
+
             <div class="content-list-wrapper">
                 <ul id="record-list"></ul>
             </div>
