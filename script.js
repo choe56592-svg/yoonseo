@@ -1,37 +1,64 @@
-body { font-family: 'Pretendard', sans-serif; background-color: #fffaf9; margin: 0; color: #444; }
-.container { max-width: 900px; margin: auto; }
-.hidden { display: none; }
+let storage = { 1: {1:[], 2:[], 3:[], 4:[]}, 2: {1:[], 2:[], 3:[], 4:[]}, 3: {1:[], 2:[], 3:[], 4:[]} };
+let currentYear = 0;
+let editIndex = -1; // 수정 중인 인덱스
 
-/* 홈 화면 정중앙 배치 */
-.full-screen { 
-    height: 100vh; display: flex; flex-direction: column; 
-    justify-content: center; align-items: center; text-align: center;
+function goToPage(year) {
+    currentYear = year;
+    document.getElementById('home-screen').classList.add('hidden');
+    document.getElementById('detail-view').classList.remove('hidden');
+    document.getElementById('year-title').innerText = year + "학년 기록장";
+    renderAll();
 }
-.big-grapefruit { font-size: 8rem; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
-h1 { color: #ff6347; font-size: 3rem; margin: 10px 0; }
 
-.center-menu { margin-top: 30px; display: flex; gap: 20px; }
-.year-btn { 
-    padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; 
-    border: 3px solid #ffd1c1; background: white; color: #ff6347;
-    cursor: pointer; transition: 0.3s; font-weight: bold;
+function addFullRecord() {
+    const cat = document.getElementById('cat-select').value;
+    const title = document.getElementById('record-title').value;
+    const desc = document.getElementById('record-desc').value;
+
+    if (!title || !desc) return alert("내용을 입력해주세요!");
+
+    if (editIndex === -1) {
+        storage[currentYear][cat].push({ title, desc });
+    } else {
+        storage[currentYear][cat][editIndex] = { title, desc };
+        editIndex = -1;
+        document.getElementById('submit-btn').innerText = "기록하기 🍊";
+    }
+    
+    document.getElementById('record-title').value = "";
+    document.getElementById('record-desc').value = "";
+    renderAll();
 }
-.year-btn:hover { background: #ff6347; color: white; border-color: #ff6347; }
 
-/* 상세 페이지 스타일 */
-#detail-view { padding: 40px 20px; }
-.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.category-box { background: white; border: 2px solid #ffd1c1; border-radius: 20px; padding: 15px; height: 200px; overflow-y: auto; text-align: left; }
+function deleteRecord(cat, index) {
+    storage[currentYear][cat].splice(index, 1);
+    renderAll();
+}
 
-.input-panel { background: #fff0eb; padding: 20px; border-radius: 20px; margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
-#record-title, #record-desc, #cat-select { border-radius: 8px; border: 1px solid #ffd1c1; padding: 10px; }
+function editRecord(cat, index) {
+    const item = storage[currentYear][cat][index];
+    document.getElementById('cat-select').value = cat;
+    document.getElementById('record-title').value = item.title;
+    document.getElementById('record-desc').value = item.desc;
+    editIndex = index;
+    document.getElementById('submit-btn').innerText = "수정완료 ✨";
+}
 
-/* 수정/삭제 버튼 스타일 */
-.edit-btns { margin-top: 5px; font-size: 0.8rem; }
-.edit-btns span { cursor: pointer; margin-right: 10px; color: #999; text-decoration: underline; }
-.edit-btns span:hover { color: #ff6347; }
+function renderAll() {
+    for (let i = 1; i <= 4; i++) {
+        const display = document.getElementById('display-' + i);
+        display.innerHTML = "";
+        storage[currentYear][i].forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.style.marginBottom = "10px";
+            div.innerHTML = `<b>🍊 ${item.title}</b><div style="font-size:0.9rem">${item.desc}</div>
+                <div class="edit-btns"><span onclick="editRecord(${i}, ${idx})">수정</span><span onclick="deleteRecord(${i}, ${idx})">삭제</span></div>`;
+            display.appendChild(div);
+        });
+    }
+}
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+function goBack() {
+    document.getElementById('home-screen').classList.remove('hidden');
+    document.getElementById('detail-view').classList.add('hidden');
 }
