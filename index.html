@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상큼자몽 고교 아카이브</title>
+    <title>상큼자몽 상세 기록장</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <div id="home-screen" class="full-screen">
-            <div class="big-grapefruit">🍊</div>
-            <h1>Grapefruit Diary</h1>
-            <p>나의 소중한 3년을 기록하는 공간</p>
-            <nav class="center-menu">
-                <button class="year-btn" onclick="goToPage(1)">1학년</button>
-                <button class="year-btn" onclick="goToPage(2)">2학년</button>
-                <button class="year-btn" onclick="goToPage(3)">3학년</button>
-            </nav>
-        </div>
+        <header id="header-area">
+            <div class="juice-icon">🍹</div>
+            <h1>Grapefruit Archive</h1>
+            <p class="sub-text">소중한 순간을 테마별로 기록해봐!</p>
+        </header>
+
+        <nav class="menu" id="main-menu">
+            <div class="card" onclick="goToPage(1)"><h3>1학년</h3></div>
+            <div class="card" onclick="goToPage(2)"><h3>2학년</h3></div>
+            <div class="card" onclick="goToPage(3)"><h3>3학년</h3></div>
+        </nav>
 
         <section id="detail-view" class="hidden">
             <div class="detail-header">
@@ -26,28 +27,34 @@
             </div>
             
             <div class="category-grid">
-                <div class="category-box">
-                    <h4> 학급 활동</h4><div id="display-1"></div>
+                <div class="category-box" id="cat-1">
+                    <h4>🌸 동아리/활동</h4>
+                    <div class="record-display" id="display-1"></div>
                 </div>
-                <div class="category-box">
-                    <h4> 학업</h4><div id="display-2"></div>
+                <div class="category-box" id="cat-2">
+                    <h4>📚 학업/성적</h4>
+                    <div class="record-display" id="display-2"></div>
                 </div>
-                <div class="category-box">
-                    <h4> 동아리 활동</h4><div id="display-3"></div>
+                <div class="category-box" id="cat-3">
+                    <h4>🎈 친구/추억</h4>
+                    <div class="record-display" id="display-3"></div>
                 </div>
-                <div class="category-box">
-                    <h4> 목표</h4><div id="display-4"></div>
+                <div class="category-box" id="cat-4">
+                    <h4>🌟 나의 꿈/목표</h4>
+                    <div class="record-display" id="display-4"></div>
                 </div>
             </div>
 
             <div class="input-panel">
                 <select id="cat-select">
-                    <option value="1">반 활동</option><option value="2">학업</option>
-                    <option value="3">동아리 활동</option><option value="4">목표</option>
+                    <option value="1">동아리</option>
+                    <option value="2">학업</option>
+                    <option value="3">추억</option>
+                    <option value="4">꿈/목표</option>
                 </select>
-                <input type="text" id="record-title" placeholder="제목">
-                <textarea id="record-desc" placeholder="내용"></textarea>
-                <button id="submit-btn" onclick="addFullRecord()" class="add-btn">기록하기 🍊</button>
+                <input type="text" id="record-title" placeholder="제목을 적어주세요!">
+                <textarea id="record-desc" placeholder="자세한 내용을 적어주세요!"></textarea>
+                <button onclick="addFullRecord()" class="add-btn">기록하기 🍊</button>
             </div>
         </section>
     </div>
