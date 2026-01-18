@@ -1,12 +1,12 @@
 let storage = { 1: {1:[], 2:[], 3:[], 4:[]}, 2: {1:[], 2:[], 3:[], 4:[]}, 3: {1:[], 2:[], 3:[], 4:[]} };
 let currentYear = 0;
-let editTarget = null; // 수정 중인지 확인하는 변수
+let currentView = { cat: null, idx: null }; // 현재 보고 있는 항목 정보
 
 function goToPage(year) {
     currentYear = year;
     document.getElementById('home-screen').classList.add('hidden');
     document.getElementById('detail-view').classList.remove('hidden');
-    document.getElementById('year-title').innerText = year + "학년 자몽 기록";
+    document.getElementById('year-title').innerText = year + "학년 자몽 아카이브";
     renderAll();
 }
 
@@ -15,38 +15,45 @@ function saveRecord() {
     const title = document.getElementById('record-title').value;
     const desc = document.getElementById('record-desc').value;
 
-    if (!title || !desc) return alert("내용을 채워주세요!");
+    if (!title || !desc) return alert("내용을 채워주세요! 🍊");
 
-    if (editTarget) {
-        // 수정 모드
-        storage[currentYear][editTarget.cat][editTarget.idx] = { title, desc };
-        editTarget = null;
-        document.getElementById('submit-btn').innerText = "기록하기 🍊";
-    } else {
-        // 새 기록 모드
-        storage[currentYear][cat].push({ title, desc });
-    }
-
+    storage[currentYear][cat].push({ title, desc });
     document.getElementById('record-title').value = "";
     document.getElementById('record-desc').value = "";
     renderAll();
 }
 
-function editItem(cat, idx) {
+function openModal(cat, idx) {
     const item = storage[currentYear][cat][idx];
-    document.getElementById('cat-select').value = cat;
+    currentView = { cat, idx };
+    document.getElementById('modal-title').innerText = item.title;
+    document.getElementById('modal-desc').innerText = item.desc;
+    document.getElementById('modal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.add('hidden');
+}
+
+function confirmDelete() {
+    if(confirm("정말 이 기록을 지울까요?")) {
+        storage[currentYear][currentView.cat].splice(currentView.idx, 1);
+        closeModal();
+        renderAll();
+    }
+}
+
+function startEdit() {
+    const item = storage[currentYear][currentView.cat][currentView.idx];
+    document.getElementById('cat-select').value = currentView.cat;
     document.getElementById('record-title').value = item.title;
     document.getElementById('record-desc').value = item.desc;
     
-    editTarget = { cat, idx };
-    document.getElementById('submit-btn').innerText = "수정완료 ✨";
-}
-
-function deleteItem(cat, idx) {
-    if(confirm("정말 삭제할까요?")) {
-        storage[currentYear][cat].splice(idx, 1);
-        renderAll();
-    }
+    // 기존 데이터 삭제 후 입력창으로 이동하는 방식 (간편 수정)
+    storage[currentYear][currentView.cat].splice(currentView.idx, 1);
+    closeModal();
+    renderAll();
+    alert("내용이 입력창으로 이동되었습니다. 수정 후 다시 기록해주세요! ✨");
 }
 
 function renderAll() {
@@ -55,12 +62,9 @@ function renderAll() {
         display.innerHTML = "";
         storage[currentYear][i].forEach((item, idx) => {
             const div = document.createElement('div');
-            div.className = "record-card";
-            div.innerHTML = `<strong>🍊 ${item.title}</strong><div style="font-size:0.9rem">${item.desc}</div>
-                <div class="btn-area">
-                    <span onclick="editItem(${i}, ${idx})">수정</span>
-                    <span onclick="deleteItem(${i}, ${idx})">삭제</span>
-                </div>`;
+            div.className = "record-title-item";
+            div.innerText = "🍊 " + item.title;
+            div.onclick = () => openModal(i, idx);
             display.appendChild(div);
         });
     }
