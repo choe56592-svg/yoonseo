@@ -2,14 +2,14 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>고교생활기록장</title>
+    <title>윤서의 고교3년 기록장</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div id="home-screen" class="full-screen">
             <div class="big-grapefruit">🍊</div>
-            <h1>윤서's Diary</h1>
+            <h1>고교 3년 다이어리</h1>
             <nav class="center-menu">
                 <button class="year-btn" onclick="goToPage(1)">1학년</button>
                 <button class="year-btn" onclick="goToPage(2)">2학년</button>
@@ -24,25 +24,36 @@
             </div>
             
             <div class="category-grid">
-                <div class="category-box"><h4>반 활동</h4><div id="display-1"></div></div>
-                <div class="category-box"><h4>동아리 활동</h4><div id="display-2"></div></div>
-                <div class="category-box"><h4>교과 활동</h4><div id="display-3"></div></div>
-                <div class="category-box"><h4>꿈 목표</h4><div id="display-4"></div></div>
+                <div class="category-box"><h4> 반 활동</h4><div id="display-1" class="list-container"></div></div>
+                <div class="category-box"><h4> 교과 활동</h4><div id="display-2" class="list-container"></div></div>
+                <div class="category-box"><h4> 동아리 활동</h4><div id="display-3" class="list-container"></div></div>
+                <div class="category-box"><h4> 목표</h4><div id="display-4" class="list-container"></div></div>
             </div>
 
             <div class="input-panel">
                 <select id="cat-select">
-                    <option value="1">반 활동</option><option value="2">동아리 활동</option>
-                    <option value="3">교과 활동</option><option value="4">꿈 목표</option>
+                    <option value="1">반 활동</option><option value="2">교과 활동</option>
+                    <option value="3">동아리 활동</option><option value="4">목표</option>
                 </select>
                 <input type="text" id="record-title" placeholder="제목을 입력하세요">
                 <textarea id="record-desc" placeholder="내용을 입력하세요"></textarea>
                 <button id="submit-btn" onclick="saveRecord()" class="add-btn">기록하기 🍊</button>
             </div>
         </section>
+
+        <div id="modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h2 id="modal-title"></h2>
+                <div class="accent-line"></div>
+                <p id="modal-desc"></p>
+                <div class="modal-btns">
+                    <button class="edit-btn" onclick="startEdit()">수정하기</button>
+                    <button class="del-btn" onclick="confirmDelete()">삭제하기</button>
+                    <button class="close-btn" onclick="closeModal()">닫기</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
-
 </html>
-
