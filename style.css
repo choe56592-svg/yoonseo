@@ -1,35 +1,39 @@
-body { font-family: 'Pretendard', sans-serif; background-color: #fffaf9; margin: 0; color: #444; }
-.container { max-width: 850px; margin: auto; }
-.hidden { display: none; }
+body { font-family: 'Pretendard', sans-serif; background-color: #fffaf9; margin: 0; padding: 0; color: #444; }
+.container { max-width: 800px; margin: auto; padding: 20px; text-align: center; }
 
-/* 홈 화면 & 버튼 생략 (이전과 동일) */
+/* 핵심: 처음에 숨겨주는 설정 */
+.hidden { display: none !important; }
+
+/* 홈 화면 디자인 */
 .full-screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .big-grapefruit { font-size: 8rem; animation: float 3s infinite; }
+h1 { color: #ff6347; font-size: 3rem; margin: 10px 0; }
 .center-menu { margin-top: 30px; display: flex; gap: 15px; }
-.year-btn { padding: 15px 30px; border-radius: 50px; border: 3px solid #ffd1c1; background: white; color: #ff6347; cursor: pointer; font-weight: bold; }
+.year-btn { padding: 15px 30px; border-radius: 50px; border: 3px solid #ffd1c1; background: white; color: #ff6347; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
+.year-btn:hover { background: #ff6347; color: white; }
 
-/* 리스트 항목 스타일 */
-.category-box { background: white; border: 2px solid #ffd1c1; border-radius: 20px; padding: 15px; height: 220px; overflow-y: auto; }
-.record-title-item { 
-    background: #fff5f2; margin-bottom: 8px; padding: 10px; border-radius: 10px; 
-    cursor: pointer; color: #ff6347; font-weight: bold; transition: 0.2s;
-}
-.record-title-item:hover { background: #ff6347; color: white; }
+/* 상세 페이지 디자인 */
+#detail-view { padding: 40px 0; }
+.back-btn { background: #ffe4db; border: none; padding: 10px 20px; border-radius: 20px; color: #ff6347; cursor: pointer; font-weight: bold; margin-bottom: 20px; }
+.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+.category-box { background: white; border: 2px solid #ffd1c1; border-radius: 20px; padding: 15px; height: 200px; overflow-y: auto; text-align: left; }
+.category-box h4 { margin: 0 0 10px 0; color: #ff6347; border-bottom: 2px solid #fff0eb; }
+.record-title-item { background: #fff5f2; margin-bottom: 8px; padding: 10px; border-radius: 10px; cursor: pointer; color: #ff6347; font-weight: bold; }
 
-/* 팝업(모달) 스타일 */
-.modal-overlay { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; 
-}
-.modal-content { 
-    background: white; padding: 40px; border-radius: 30px; width: 80%; max-width: 500px; 
-    text-align: center; border: 5px solid #ff7f50; 
-}
-.accent-line { width: 40px; height: 4px; background: #ff7f50; margin: 15px auto; }
-#modal-desc { white-space: pre-wrap; margin: 20px 0; line-height: 1.6; }
-.modal-btns button { margin: 5px; padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; }
-.close-btn { background: #eee; }
+/* 입력창 */
+.input-panel { background: #fff0eb; padding: 20px; border-radius: 20px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+#record-title, #record-desc, #cat-select { border: 1px solid #ffd1c1; border-radius: 10px; padding: 10px; outline: none; }
+.add-btn { background: #ff6347; color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+
+/* 모달(팝업) 디자인 */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+.modal-content { background: white; padding: 30px; border-radius: 25px; width: 80%; max-width: 400px; text-align: center; }
+.modal-title { color: #ff6347; margin-bottom: 15px; }
+.modal-desc { background: #f9f9f9; padding: 15px; border-radius: 15px; text-align: left; min-height: 100px; margin-bottom: 20px; white-space: pre-wrap; }
+.modal-btns { display: flex; gap: 10px; }
+.modal-btns button { flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
 .edit-btn { background: #ffeb3b; }
 .del-btn { background: #ff5252; color: white; }
+.close-btn { background: #ddd; }
 
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
