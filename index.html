@@ -2,53 +2,51 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>윤서의 고교3년 기록장</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상큼자몽 비밀 기록장</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div id="home-screen" class="full-screen">
             <div class="big-grapefruit">🍊</div>
-            <h1>고교 3년 다이어리</h1>
-            <nav class="center-menu">
+            <h1>Grapefruit Diary</h1>
+            <div class="center-menu">
                 <button class="year-btn" onclick="goToPage(1)">1학년</button>
                 <button class="year-btn" onclick="goToPage(2)">2학년</button>
                 <button class="year-btn" onclick="goToPage(3)">3학년</button>
-            </nav>
+            </div>
         </div>
 
-        <section id="detail-view" class="hidden">
-            <div class="detail-header">
-                <button onclick="goBack()" class="back-btn">← Home</button>
-                <h2 id="year-title"></h2>
-            </div>
+        <div id="detail-view" class="hidden">
+            <button onclick="goBack()" class="back-btn">← Home</button>
+            <h2 id="year-title" style="color:#ff6347"></h2>
             
             <div class="category-grid">
-                <div class="category-box"><h4> 반 활동</h4><div id="display-1" class="list-container"></div></div>
-                <div class="category-box"><h4> 교과 활동</h4><div id="display-2" class="list-container"></div></div>
-                <div class="category-box"><h4> 동아리 활동</h4><div id="display-3" class="list-container"></div></div>
-                <div class="category-box"><h4> 목표</h4><div id="display-4" class="list-container"></div></div>
+                <div class="category-box"><h4>🌸 활동</h4><div id="display-1"></div></div>
+                <div class="category-box"><h4>📚 학업</h4><div id="display-2"></div></div>
+                <div class="category-box"><h4>🎈 추억</h4><div id="display-3"></div></div>
+                <div class="category-box"><h4>🌟 목표</h4><div id="display-4"></div></div>
             </div>
 
             <div class="input-panel">
                 <select id="cat-select">
-                    <option value="1">반 활동</option><option value="2">교과 활동</option>
-                    <option value="3">동아리 활동</option><option value="4">목표</option>
+                    <option value="1">활동</option><option value="2">학업</option>
+                    <option value="3">추억</option><option value="4">목표</option>
                 </select>
-                <input type="text" id="record-title" placeholder="제목을 입력하세요">
-                <textarea id="record-desc" placeholder="내용을 입력하세요"></textarea>
-                <button id="submit-btn" onclick="saveRecord()" class="add-btn">기록하기 🍊</button>
+                <input type="text" id="record-title" placeholder="제목을 적어주세요">
+                <textarea id="record-desc" placeholder="내용을 적어주세요"></textarea>
+                <button onclick="saveRecord()" class="add-btn">기록하기 🍊</button>
             </div>
-        </section>
+        </div>
 
         <div id="modal" class="modal-overlay hidden">
             <div class="modal-content">
-                <h2 id="modal-title"></h2>
-                <div class="accent-line"></div>
-                <p id="modal-desc"></p>
+                <h2 id="modal-title" class="modal-title"></h2>
+                <div id="modal-desc" class="modal-desc"></div>
                 <div class="modal-btns">
-                    <button class="edit-btn" onclick="startEdit()">수정하기</button>
-                    <button class="del-btn" onclick="confirmDelete()">삭제하기</button>
+                    <button class="edit-btn" onclick="startEdit()">수정</button>
+                    <button class="del-btn" onclick="confirmDelete()">삭제</button>
                     <button class="close-btn" onclick="closeModal()">닫기</button>
                 </div>
             </div>
